@@ -1,3 +1,5 @@
+import { Chronometer } from './chronometer.js';
+
 const chronometer = new Chronometer();
 
 // get the buttons:
@@ -56,8 +58,32 @@ function setResetBtn() {
 
 // Start/Stop Button
 btnLeftElement.addEventListener('click', () => {
-  // ... your code goes here
+  if (btnLeftElement.classList.contains('start')) {
+    btnLeftElement.innerText = 'STOP';
+    btnLeftElement.classList.replace('start', 'stop');
+
+    btnRightElement.innerText = 'SPLIT';
+    btnRightElement.classList.replace('reset', 'split');
+
+    chronometer.start(() => {
+      let minutes = chronometer.computeTwoDigitNumber(chronometer.getMinutes());
+      let seconds = chronometer.computeTwoDigitNumber(chronometer.getSeconds());
+
+      minDecElement.innerHTML = minutes[0];
+      minUniElement.innerHTML = minutes[1];
+      secDecElement.innerHTML = seconds[0];
+      secUniElement.innerHTML = seconds[1];
+    });
+  } else {
+    chronometer.stop();
+    btnLeftElement.innerText = 'START';
+    btnLeftElement.classList.replace('stop', 'start');
+
+    btnRightElement.innerText = 'RESET';
+    btnRightElement.classList.replace('split', 'reset');
+  }
 });
+console.log(minDec, minUni, secDec, secUni);
 
 // Reset/Split Button
 btnRightElement.addEventListener('click', () => {
