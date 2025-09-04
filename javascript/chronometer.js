@@ -5,27 +5,26 @@ class Chronometer {
   }
 
   start(callback) {
-  // si ya hay un intervalo activo, no arrancar otro
-  if (this.intervalId) return;
+    // si ya hay un intervalo activo, no arrancar otro
+    if (this.intervalId) return;
 
-  this.intervalId = setInterval(() => {
-    this.currentTime += 1;
-    if (callback) callback(); // ejecutar el callback si existe
-  }, 10);
-}
+    this.intervalId = setInterval(() => {
+      this.currentTime += 1;
+      if (callback) callback(); // ejecutar el callback si existe
+    }, 1000);
+  }
 
   getMinutes() {
-    return Math.floor((this.currentTime / 100) / 60);
+    return Math.floor(this.currentTime / 60);
   }
 
   getSeconds() {
-    return Math.floor(this.currentTime / 100) % 60;
+    return this.currentTime % 60;
   }
 
   getMilliseconds() {
-  return this.currentTime % 100;
-}
-
+    return this.currentTime % 100;
+  }
 
   computeTwoDigitNumber(value) {
     let number = String(value);
@@ -33,23 +32,22 @@ class Chronometer {
     if (number.length === 1) {
       return number.padStart(2, '0');
     }
-    return number
+    return number;
   }
 
   stop() {
-  clearInterval(this.intervalId); // parar el intervalo
-  this.intervalId = null;         // reiniciar la referencia
-}
+    clearInterval(this.intervalId); // parar el intervalo
+    this.intervalId = null; // reiniciar la referencia
+  }
 
   reset() {
-    this.currentTime = 0
+    this.currentTime = 0;
   }
 
   split() {
-    let mins = this.computeTwoDigitNumber(this.getMinutes())
-    let secs = this.computeTwoDigitNumber(this.getSeconds())
-    let mills = this.computeTwoDigitNumber(this.getMilliseconds())
-    return `${mins}:${secs}.${mills}`
+    let mins = this.computeTwoDigitNumber(this.getMinutes());
+    let secs = this.computeTwoDigitNumber(this.getSeconds());
+    return `${mins}:${secs}`;
   }
 }
 
