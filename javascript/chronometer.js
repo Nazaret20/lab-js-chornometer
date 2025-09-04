@@ -5,12 +5,11 @@ class Chronometer {
   }
 
   start(callback) {
-    // si ya hay un intervalo activo, no arrancar otro
     if (this.intervalId) return;
 
     this.intervalId = setInterval(() => {
       this.currentTime += 1;
-      if (callback) callback(); // ejecutar el callback si existe
+      if (callback) callback();
     }, 1000);
   }
 
@@ -36,8 +35,8 @@ class Chronometer {
   }
 
   stop() {
-    clearInterval(this.intervalId); // parar el intervalo
-    this.intervalId = null; // reiniciar la referencia
+    clearInterval(this.intervalId);
+    this.intervalId = null;
   }
 
   reset() {
